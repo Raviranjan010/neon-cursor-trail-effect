@@ -5,8 +5,8 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 let width, height;
 const trail = [];
-let mouseX = 0,
-    mouseY = 0,
+let mouseX = 3,
+    mouseY = 3,
     isMoving = false;
 
 function resizeCanvas() {
@@ -50,19 +50,19 @@ function onVisibilityChange() {
 
 function createTrail(x, y) {
     trail.push({ x, y, alpha: 1 });
-    if (trail.length > 100) trail.shift();
+    if (trail.length > 105) trail.shift();
 }
 
 function render() {
     ctx.clearRect(0, 0, width, height);
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#ff00ff';
 
     // Fade out when cursor stops moving
     if (!isMoving) {
         for (let i = 0; i < trail.length; i++) {
-            trail[i].alpha -= 0.02;
+            trail[i].alpha -= 0.05;
             if (trail[i].alpha <= 0) {
                 trail.splice(i, 1);
                 i--;
